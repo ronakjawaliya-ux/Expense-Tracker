@@ -157,6 +157,7 @@ while True:
 
     # 2. View Expenses
     elif choice == 2:
+
         if not expenses:
             print('No expenses found!')
             continue
@@ -165,12 +166,51 @@ while True:
 
         for expense in expenses:
             print('=================================\n')
-            print(f'Expense ID {expense["id"]}')
-            print(f'Date: {expense["date"]}')
-            print(f'Category: {expense["category"]}')
-            print(f'Description: {expense["description"]}')
-            print(f'Amount: {expense["amount"]:.2f}')
+            print(f'Expense ID     : {expense["id"]}')
+            print(f'Date           : {expense["date"]}')
+            print(f'Category       : {expense["category"]}')
+            print(f'Description    : {expense["description"]}')
+            print(f'Amount         : ₹{expense["amount"]:.2f}')
             print('=================================\n')
+
+
+    # 3. Search Expense
+    elif choice == 3:
+
+        if not expenses:
+            print('No expenses found!')
+            continue
+
+        try:
+            expense_id = int(input('Enter expense id: '))
+        except ValueError:
+            print('Invalid choice: it should be an integer')
+            continue
+
+        if expense_id <= 0:
+            print('Invalid choice: Expense ID must be positive int')
+            continue
+
+        found = False
+        for existing_expense in expenses:
+            if existing_expense['id'] == expense_id:
+                print('\nExpense Details\n')
+                print('=================================\n')
+                print(f'Expense ID     : {existing_expense["id"]}')
+                print(f'Date           : {existing_expense["date"]}')
+                print(f'Category       : {existing_expense["category"]}')
+                print(f'Description    : {existing_expense["description"]}')
+                print(f'Amount         : ₹{existing_expense["amount"]:.2f}')
+                print('=================================\n')
+                found = True
+                break
+
+        if not found:
+            print('\nExpense not found\n')
+
+
+
+
 
 
 
