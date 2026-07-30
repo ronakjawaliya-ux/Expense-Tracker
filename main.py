@@ -155,6 +155,24 @@ while True:
             print(f'Expense ID {expense_id} added successfully!')
 
 
+    # 2. View Expenses
+    elif choice == 2:
+        if not expenses:
+            print('No expenses found!')
+            continue
+
+        print('======== VIEW EXPENSES ========\n')
+
+        for expense in expenses:
+            print('=================================\n')
+            print(f'Expense ID {expense["id"]}')
+            print(f'Date: {expense["date"]}')
+            print(f'Category: {expense["category"]}')
+            print(f'Description: {expense["description"]}')
+            print(f'Amount: {expense["amount"]:.2f}')
+            print('=================================\n')
+
+
 
 
 
