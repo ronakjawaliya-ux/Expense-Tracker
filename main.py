@@ -372,6 +372,122 @@ while True:
             print('No expenses found!')
             continue
 
+        try:
+            delete_expense_id = int(input('Enter Expense ID to delete: '))
+        except ValueError:
+            print('Expense ID should be an integer')
+            continue
+
+        if delete_expense_id <= 0:
+            print('Invalid choice: Expense ID must be positive int')
+            continue
+
+
+        found = False
+
+        for existing_expense in expenses:
+            if existing_expense['id'] == delete_expense_id:
+                found = True
+                print('=================================\n')
+                print(f'Expense ID     : {existing_expense["id"]}')
+                print(f'Date           : {existing_expense["date"]}')
+                print(f'Category       : {existing_expense["category"]}')
+                print(f'Description    : {existing_expense["description"]}')
+                print(f'Amount         : ₹{existing_expense["amount"]:.2f}')
+                print('=================================\n')
+
+                while True:
+                    confirm = input("Are you sure you want to delete this expense? (Y/N): ").strip().upper()
+
+                    if confirm == 'Y':
+                        print("Deleting expense...")
+                        expenses.remove(existing_expense)
+                        print(f'Expense ID {delete_expense_id} deleted successfully!')
+                        save_expenses(expenses)
+                        break
+
+                    elif confirm == 'N':
+                        print("Canceling deletion...")
+                        break
+
+                    else:
+                        print('Please enter Y or N')
+
+                break
+
+        if not found:
+            print('Expense not found.')
+
+    # 6. TOTAL EXPENSE
+    elif choice == 6:
+
+        if not expenses:
+            print('No expenses found!')
+            continue
+
+        total = 0
+        for existing_expense in expenses:
+            total += existing_expense['amount']
+
+        print(f'Total Expense: ₹{total:.2f}')
+
+    # 7. EXPENSE ANALYSIS
+    elif choice == 7:
+
+        # Validating Empty Expense
+        if not expenses:
+            print('No expenses found!')
+            continue
+
+        # Total Expense
+        expense_count = len(expenses)
+        total = 0
+        for existing_expense in expenses:
+            total += existing_expense['amount']
+
+        # Average Expense
+        average = total / expense_count
+
+        # Highest Expense
+        highest_expense = max(expenses, key=lambda x: x['amount'])
+
+        # Lowest Expense
+        lowest_expense = min(expenses, key=lambda x: x['amount'])
+
+
+
+        category_totals = {}
+
+        for existing_expense in expenses:
+            category = existing_expense['category']
+            category_totals[category] = category_totals.get(category, 0) + existing_expense['amount']
+
+        print('======== EXPENSE ANALYSIS ========\n')
+        print(f'Total Expense       : ₹{total:.2f}')
+        print(f'Average Expense     : ₹{average:.2f}')
+        print(f'Highest Expense     : ₹{highest_expense["amount"]:.2f}')
+        print(f'Lowest Expense      : ₹{lowest_expense["amount"]:.2f}')
+        print('==================================\n')
+
+        print('======== CATEGORY-WISE SPENDING ========\n')
+        for category, amount in category_totals.items():
+            print(f'{category:<18}: ₹{amount:.2f}')
+        print('========================================\n')
+
+
+    #8. EXIT
+    elif choice == 8:
+        print("Thank you for using Expense Tracker!")
+        break
+
+    else:
+        print("Invalid choice.")
+        print("Please enter a number between 1 and 8.")
+
+
+
+
+
 
 
 
